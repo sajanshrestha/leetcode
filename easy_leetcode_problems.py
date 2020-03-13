@@ -36,4 +36,46 @@ Runtime: 12 ms, faster than 95.33% of Python online submissions for Jewels and S
 def numJewelsInStones(J, S):
     return sum([S.count(char) for char in J])
 
+
 # ------------------------------------------------------------------------------------------------------------------
+'''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
+
+Given a positive integer num consisting only of digits 6 and 9.
+Return the maximum number you can get by changing at most one digit (6 becomes 9, and 9 becomes 6).
+
+Input: num = 9669
+Output: 9969
+
+Input: num = 9996
+Output: 9999
+
+Runtime: 16 ms, faster than 73.48% of Python online submissions for Maximum 69 Number.
+'''
+
+
+def maximum69Number(num):
+    num_str = str(num)
+    if '6' in num_str:
+        index = num_str.index('6')
+        result_str = num_str[:index] + '9' + num_str[index+1:]
+        return int(result_str)
+    else:
+        return num
+
+# ------------------------------------------------------------------------------------------------------------------
+
+
+def yes_no(arr):
+    result = []
+    while arr:
+        even_list = [arr[i] for i in range(len(arr)) if i % 2 == 0]
+        new_list = [arr[i] for i in range(len(arr)) if i % 2 != 0]
+        result += even_list
+        arr = new_list
+    return result
+
+
+print(yes_no([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
