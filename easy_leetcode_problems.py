@@ -95,3 +95,27 @@ def findTheDifference(s, t):
         if sorted_s[i] != sorted_t[i]:
             return sorted_t[i]
     return sorted_t[-1]
+
+
+'''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
+Given an array of integers arr, replace each element with its rank.
+
+The rank represents how large the element is. The rank has the following rules:
+
+Rank is an integer starting from 1.
+The larger the element, the larger the rank. If two elements are equal, their rank must be the same.
+Rank should be as small as possible.
+Runtime: 336 ms, faster than 87.61% of Python online submissions for Rank Transform of an Array.
+'''
+
+
+def arrayRankTransform(self, arr):
+    new_arr = sorted(set(arr))
+    rank_arr = list(range(1, len(new_arr) + 1))
+    new_dict = dict(zip(new_arr, rank_arr))
+    return [new_dict[x] for x in arr]
+
+# ------------------------------------------------------------------------------------------------------------------
