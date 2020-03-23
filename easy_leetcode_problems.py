@@ -120,3 +120,139 @@ def arrayRankTransform(self, arr):
     return [new_dict[x] for x in arr]
 
 # ------------------------------------------------------------------------------------------------------------------
+
+
+'''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
+Given a string containing just the characters 
+'(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Note that an empty string is also considered valid.
+
+Runtime: 64 ms, faster than 82.51% of Python online submissions for 
+Remove All Adjacent Duplicates In String.
+'''
+
+
+class Stack:
+
+
+    def __init__(self):
+        self._data = []
+
+    def push(self, element):
+        self._data.append(element)
+
+    def pop(self):
+        if self.is_empty():
+            raise Empty('Stack is empty')
+        return self._data.pop()
+
+    def top(self):
+        if self.is_empty():
+            raise Empty('Stack is empty')
+        return self._data[-1]
+
+    def is_empty(self):
+        return len(self._data) == 0
+
+
+'''
+
+faster than 82.51% of Python online submissions for 
+Remove All Adjacent Duplicates In String
+
+
+Given a string S of lowercase letters, 
+a duplicate removal consists of choosing two adjacent and equal letters, 
+and removing them.
+
+We repeatedly make duplicate removals on S until we no longer can.
+
+Return the final string after all such duplicate removals have been made.  
+It is guaranteed the answer is unique.
+'''
+
+
+class Solution(object):
+    def get_reversed(self, bracket):
+
+        reverse_dict = {'(': ')', '{': '}',
+                        '[': ']', ')': '(', '}': '{', ']': '['}
+        return reverse_dict[bracket]
+
+    def isValid(self, s):
+        stack = Stack()
+        for char in s:
+            if stack.is_empty():
+                stack.push(char)
+            else:
+                if stack.top() == self.get_reversed(char):
+                    stack.pop()
+                else:
+                    stack.push(char)
+        return stack.is_empty()
+
+# ------------------------------------------------------------------------------------------------------------------
+
+
+def removeDuplicates(S):
+    my_list = []
+    for char in S:
+        if not my_list:
+            my_list.append(char)
+        else:
+            if char == my_list[-1]:
+                my_list.pop()
+            else:
+                my_list.append(char)
+    return ''.join(my_list)
+
+# ------------------------------------------------------------------------------------------------------------------
+
+
+'''
+
+    Merge two sorted linked lists and return it as a new list.
+    The new list should be made by splicing together the nodes of 
+    the first two lists.
+'''
+
+
+class Solution:
+
+    def mergeTwoLists(self, l1, l2):
+
+        if not l1 or not l2:
+            return l1 or l2
+
+        l3 = ListNode(l1.val)
+        cur = l3
+
+        while l1 or l2:
+            if not l1:
+                cur.next = ListNode(l2.val)
+                cur = cur.next
+                l2 = l2.next
+            elif not l2:
+                cur.next = ListNode(l1.val)
+                cur = cur.next
+                l1 = l1.next
+            elif l1.val < l2.val:
+                cur.next = ListNode(l1.val)
+                cur = cur.next
+                l1 = l1.next
+            else:
+                cur.next = ListNode(l2.val)
+                cur = cur.next
+                l2 = l2.next
+        l3 = l3.next
+        return l3
+
+# ------------------------------------------------------------------------------------------------------------------
