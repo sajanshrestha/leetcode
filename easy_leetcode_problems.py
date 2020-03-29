@@ -142,7 +142,6 @@ Remove All Adjacent Duplicates In String.
 
 class Stack:
 
-
     def __init__(self):
         self._data = []
 
@@ -164,6 +163,9 @@ class Stack:
 
 
 '''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
 
 faster than 82.51% of Python online submissions for 
 Remove All Adjacent Duplicates In String
@@ -218,11 +220,25 @@ def removeDuplicates(S):
 
 
 '''
+Problem ----------------------------------------------------------------------------------------------------------
+
 
     Merge two sorted linked lists and return it as a new list.
     The new list should be made by splicing together the nodes of 
     the first two lists.
 '''
+
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+    def __str__(self):
+        if self.next == None:
+            return f'{self.val}'
+        else:
+            return f'{self.val}' + ' -- ' + self.next.__str__()
 
 
 class Solution:
@@ -256,3 +272,84 @@ class Solution:
         return l3
 
 # ------------------------------------------------------------------------------------------------------------------
+
+
+class Solution:
+    def deleteDuplicates(self, head):
+        current = head
+        while current.next != None:
+            if current.next.val == current.val:
+                current = current.next.next
+            else:
+                current = current.next
+        return head
+
+
+l1 = ListNode(1)
+l1.next = ListNode(2)
+l1.next.next = ListNode(2)
+l1.next.next.next = ListNode(2)
+
+soln = Solution()
+l2 = soln.deleteDuplicates(l1)
+
+'''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
+
+    Remove all elements from a linked list of integers that have value val.
+
+    Runtime: 56 ms, faster than 92.34% of 
+    Python online submissions for Remove Linked List Elements.
+
+
+'''
+
+
+class Solution(object):
+    def removeElements(self, head, val):
+
+        if not head:
+            return None
+
+        curr = head
+
+        while curr.next:
+            if head.val == val:
+                head = head.next
+                curr = head
+            elif curr.next.val != val:
+                curr = curr.next
+            else:
+                temp = curr
+                while temp.next and temp.next.val == val:
+                    temp = temp.next
+                curr.next = temp.next
+        if head.val == val:
+            return None
+        return head
+
+# ------------------------------------------------------------------------------------------------------------------
+
+
+'''
+
+Problem ----------------------------------------------------------------------------------------------------------
+
+We are given a list nums of integers representing a list compressed with run-length encoding.
+Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  
+For each such pair, there are freq elements with value val concatenated in a sublist. 
+Concatenate all the sublists from left to right to generate the decompressed list.
+Return the decompressed list.
+
+Input: nums = [1,2,3,4]
+Output: [2,4,4,4]
+Explanation: The first pair [1,2] means we have freq = 1 and val = 2 so we generate the array [2].
+The second pair [3,4] means we have freq = 3 and val = 4 so we generate [4,4,4].
+At the end the concatenation [2] + [4,4,4] is [2,4,4,4].
+
+Runtime: 44 ms, faster than 99.14% of Python online submissions for Decompress Run-Length Encoded List.
+Memory Usage: 13 MB, less than 100.00% of Python online submissions for Decompress Run-Length Encoded List.
+
+'''
